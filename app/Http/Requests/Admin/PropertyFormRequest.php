@@ -11,7 +11,7 @@ class PropertyFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class PropertyFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required' , 'min:8'] , 
+            'titre' => ['required' , 'min:8'] , 
             'description' => ['required' , 'min:8'] , 
             'surface' => ['required' , 'integer' , 'min:10'] , 
             'rooms' => ['required', 'integer' , 'min:1'] ,
