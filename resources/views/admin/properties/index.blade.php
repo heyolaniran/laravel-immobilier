@@ -28,7 +28,16 @@
                 <td> {{ number_format($property->price, thousands_separator: ' ') }}</td>
                 <td> {{ $property->city }}</td>
                 <td>
+                    <div class="d-flex gap-2 w-100 justify-content-center">
+                         <a href="{{ route('admin.properties.edit', $property) }}" class="btn btn-primary">Editer</a>
+                        <form action="{{ route('admin.properties.destroy', $property) }}" method="post">
+                            @csrf 
+                            @method('delete')
 
+                            <button class="btn ml-2 btn-danger"> Supprimer </button>
+                        </form>
+                    </div>
+                   
                 </td>
             </tr>
 
