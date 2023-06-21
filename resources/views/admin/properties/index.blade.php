@@ -1,8 +1,13 @@
 @extends('admin.admin')
-
+@section('title',  'Tout nos biens ')
 @section('content')
 
-<h1> Les biens immobiliers</h1>
+<div class="d-flex justify-content-between align-items-center">
+    <h1> Les biens immobiliers</h1>
+
+    <a href="{{ route('admin.properties.create') }} " class="btn btn-primary">Ajouter un bien </a>
+</div>
+
 
 <table class="table table-striped">
     <thead>
