@@ -25,10 +25,7 @@ class OptionController extends Controller
     public function create()
     {
         $option = new Option() ; 
-        $option->create([
-            'name' => ''
-        ]) ; 
-
+       
         return \view("admin.options.form", [ 
             'option' => $option
         ]) ; 

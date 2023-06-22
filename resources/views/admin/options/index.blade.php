@@ -42,5 +42,9 @@
     </tbody>
 </table>
 
+{{
+    $options->links()
+}}
+
 
 @endsection
