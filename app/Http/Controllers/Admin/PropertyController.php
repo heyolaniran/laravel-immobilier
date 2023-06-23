@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Option;
 use App\Models\Property ; 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PropertyFormRequest ; 
+
 class PropertyController extends Controller
 {
     /**
@@ -32,8 +34,11 @@ class PropertyController extends Controller
             'city' => 'Abomey-Calavi', 
             'sold' => false
         ]) ; 
+
+
         return view('admin.properties.form', [ 
-            'property' => $property
+            'property' => $property , 
+            'options' => Option::pluck('name' , 'id')
         ]) ; 
     }
 
@@ -43,7 +48,7 @@ class PropertyController extends Controller
     public function store(PropertyFormRequest $request)
     {
         $property = Property::create($request->validated()) ; 
-
+        $property->options()->sync($request->validated('options')) ; 
         return to_route('admin.properties.index')->with('success', 'Votre bien a été enrégistré') ; 
     }
 
@@ -55,7 +60,8 @@ class PropertyController extends Controller
     public function edit(Property $property)
     {
         return view("admin.properties.form", [
-            'property' => $property
+            'property' => $property , 
+            'options' => Option::pluck('name' , 'id') 
         ]); 
     }
 
@@ -65,7 +71,7 @@ class PropertyController extends Controller
     public function update(PropertyFormRequest $request, Property $property)
     {
         $property->update($request->validated()) ; 
-
+            $property->options()->sync($request->validated('options')) ; 
         return to_route('admin.properties.index')->with('success', "Modification effectué") ; 
     }
 

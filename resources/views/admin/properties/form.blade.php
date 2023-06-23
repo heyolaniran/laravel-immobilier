@@ -33,10 +33,15 @@
         @include('admin.shared.input', [ 'class'=> 'col','name' => 'city' , 'type'=>'text', 'value' => $property->city])
     </div>
     <div class="row">
-    @include('admin.shared.checkbox', [ 'name' => 'sold' ,  'value' => $property->sold])
+        @include('admin.shared.checkbox', [ 'name' => 'sold' ,  'value' => $property->sold])
     </div>
-    <div>
-    <button class="btn btn-primary">
+    <div class="row">
+            @include('admin.shared.select', [ 'class' => 'my-2', 'name' =>'options' , 'label'=>'Options' , 'multiple'=>true , 'value' => $property->options()->pluck('id') , 'options' => $options])
+    </div>
+
+   
+    <div class="mt-4">
+    <button class="btn btn-primary px-4">
         @if ($property->exists)
             Modifier 
         @else
