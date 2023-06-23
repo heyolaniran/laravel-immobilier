@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Option;
-use App\Models\Property ; 
+use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PropertyFormRequest ; 
@@ -18,6 +18,11 @@ class PropertyController extends Controller
         return view("admin.properties.index", [ 
             'properties' =>Property::orderBy("created_at", 'desc')->paginate(1) 
         ]) ; 
+    }
+
+    public function show(Property $property){ 
+
+        dd($property) ; 
     }
 
     /**
