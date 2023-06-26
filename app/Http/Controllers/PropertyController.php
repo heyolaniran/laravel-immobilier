@@ -2,19 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Property;
 use Illuminate\Http\Request;
+use App\Http\Requests\SearchRequest;
 
 class PropertyController extends Controller
 {
-    public function index() { 
-        $properties = Property::orderBy('created_at',  'desc')->paginate(15) ; 
+    public function index(SearchRequest $request) { 
+
+        $query = Property::query() ; 
+
+        if($request->validated('price')) { 
+            $query = $query->where('price', '<=' , $request->validated('price')) ; 
+        }
+         if($request->validated('surface')) { 
+            $query = $query->where('surface', '>=' , $request->validated('surface')) ; 
+        }
+
+        if($request->validated('rooms')) { 
+            $query = $query->where('rooms', '>=' , $request->validated('rooms')) ; 
+        }
+       
         return view('home' , [
-            'properties' => $properties
+            'properties' => $query->paginate(20) , 
+            'input' => $request->validated()
         ]) ; 
     }
 
-    public function show(string $id , Property $property) { 
-        return view('property.show', $property) ; 
+    public function show(string $slug , Property $property) { 
+
+        $expectedSlug = $property->getSlug() ; 
+        if($slug !== $expectedSlug) { 
+            return \to_route('property.show' , ['slug' => $expectedSlug , 'property' =>$property]) ; 
+        }
+        return view('property.show', [
+            'property' =>$property
+        ]) ; 
     }
 
 
