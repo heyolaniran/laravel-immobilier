@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PropertyController;
 
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\Admin\OptionController;
 
 /*
@@ -35,7 +36,11 @@ Route::post('/biens/{property}/contact', [PropertyController::class , 'contact']
     'property' => '[0-9]+'
 ]) ; 
 
-Route::prefix('admin')->name("admin.")->group(function () { 
+Route::get("/login",  [AuthController::class, 'login'])->name('login')->middleware('guest') ; 
+Route::post('/login', [AuthController::class, 'doLogin']) ; 
+Route::delete('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout'); 
+
+Route::prefix('admin')->name("admin.")->middleware('auth')->group(function () { 
     Route::resource("properties",App\Http\Controllers\Admin\PropertyController::class)->except(['show']) ; 
     Route::resource("options", OptionController::class)->except(['show']) ; 
 }) ; 

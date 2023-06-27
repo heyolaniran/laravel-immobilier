@@ -33,6 +33,13 @@ $route = url()->current() ;
         <a class="nav-link" href="{{ route('admin.options.index') }}">Options</a>
       </li>
     </ul>
+    @auth
+       <form action="{{route('logout')}}" method="post" class="form-inline">
+          @csrf
+          @method('delete')
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Se deconnecter </button>
+      </form>
+   @endauth
   </div>
 </nav>
 <div class="container  ">
