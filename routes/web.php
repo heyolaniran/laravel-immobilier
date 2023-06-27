@@ -27,7 +27,12 @@ Route::get('/biens' , [PropertyController::class, 'index'])->name('property') ;
 
 Route::get('/biens/{slug}-{property}' , [PropertyController::class , 'show'])->name('property.show')->where([
     'slug' => '[0-9a-z\-]+', 
-    'id' => '[0-9]+'
+    'property' => '[0-9]+'
+]) ; 
+
+Route::post('/biens/{property}/contact', [PropertyController::class , 'contact'])->name('property.contact')
+->where([
+    'property' => '[0-9]+'
 ]) ; 
 
 Route::prefix('admin')->name("admin.")->group(function () { 

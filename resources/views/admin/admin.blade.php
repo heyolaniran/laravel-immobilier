@@ -36,6 +36,9 @@ $route = url()->current() ;
   </div>
 </nav>
 <div class="container  ">
+
+    @include('components.flash')
+
     @yield('content')
 </div>
 

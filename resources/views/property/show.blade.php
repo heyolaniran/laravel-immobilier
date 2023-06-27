@@ -13,20 +13,21 @@
        <h3>{{number_format($property->price, thousands_separator: ' ')}} XOF</h3> 
     </div>
 
+    @include('components.flash')
     <hr>
     <div class="container mt-4">
-        <form action="" method="post">
+        <form action="{{route('property.contact' , $property)}}" method="post">
             @csrf
             <div class="row">
-                @include('admin.shared.input' , ['class' => 'col' , 'name'=>'prenom' , 'label' => 'Prenoms'])
-                @include('admin.shared.input' , ['class' => 'col' , 'name'=>'nom' , 'label' => 'Nom'])
+                @include('admin.shared.input' , ['class' => 'col' , 'name'=>'prenom' , 'label' => 'Prenoms'  , 'value' => 'John'])
+                @include('admin.shared.input' , ['class' => 'col' , 'name'=>'nom' , 'label' => 'Nom' , 'value' => 'Doe'])
             </div>
             <div class="row">
-            @include('admin.shared.input' , ['class' => 'col' , 'name'=>'telephone' ])
-                @include('admin.shared.input' , ['class' => 'col' , 'type'=>'email', 'name'=>'email' , 'label' => 'E-mail'])
+            @include('admin.shared.input' , ['class' => 'col' , 'name'=>'telephone'  , 'value' => '+22996584394'])
+                @include('admin.shared.input' , ['class' => 'col' , 'type'=>'email', 'name'=>'email' , 'label' => 'E-mail' , 'value' => 'loremipsum@gmail.com'])
             </div>
 
-            @include('admin.shared.input', ['type' =>'textarea' , 'class' =>'col' , 'name' =>'message'])
+            @include('admin.shared.input', ['type' =>'textarea' , 'class' =>'col' , 'name' =>'message' , 'value' => 'lorem ipsum message'])
 
             <button class="btn btn-primary btn-md">Nous contacter </button>
         </form>
