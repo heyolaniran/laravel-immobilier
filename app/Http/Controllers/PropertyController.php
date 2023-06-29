@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Mail\PropertyContactMail;
 use App\Http\Requests\SearchRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\PropertyContactForm;
 
@@ -14,7 +16,7 @@ class PropertyController extends Controller
     public function index(SearchRequest $request) { 
 
         $query = Property::query()->recent() ; 
-
+        
         if($request->validated('price')) { 
             $query = $query->where('price', '<=' , $request->validated('price')) ; 
         }
