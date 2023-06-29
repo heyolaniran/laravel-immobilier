@@ -5,6 +5,9 @@
 
 @section('content')
 
+<x-alert type="warning">
+lorem 
+</x-alert>
 
 <div class="container mt-5">
 
