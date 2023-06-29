@@ -6,6 +6,7 @@ use App\Models\Option;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\PropertyFormRequest ; 
 
 class PropertyController extends Controller
@@ -52,7 +53,8 @@ class PropertyController extends Controller
      */
     public function store(PropertyFormRequest $request)
     {
-        $property = Property::create($request->validated()) ; 
+        $data = $this->extractData(new Property() , $request);
+        $property = Property::create($data) ; 
         $property->options()->sync($request->validated('options')) ; 
         return to_route('admin.properties.index')->with('success', 'Votre bien a été enrégistré') ; 
     }
@@ -75,9 +77,33 @@ class PropertyController extends Controller
      */
     public function update(PropertyFormRequest $request, Property $property)
     {
-        $property->update($request->validated()) ; 
+
+        $data = $this->extractData($property , $request);
+        
+        $property->update($data) ; 
             $property->options()->sync($request->validated('options')) ; 
-        return to_route('admin.properties.index')->with('success', "Modification effectué") ; 
+        return to_route('admin.properties.index')->with('success', "Modification effectuée") ; 
+    }
+
+    private function extractData(Property $property , PropertyFormRequest $request) { 
+        $data = $request->validated() ; 
+        $image = $request->validated('image'); 
+        /**
+         * @var UploadedFile|null $image
+         */
+
+         if($image == null && $image->getError()){ 
+            return $data ; 
+         }
+
+         if($property->image){ 
+            Storage::disk('public')->delete($property->image);
+         }
+       
+         $data['image'] = $image->store('properties' , 'public') ; 
+    
+         return $data ; 
+      
     }
 
     /**

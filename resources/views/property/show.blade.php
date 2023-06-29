@@ -6,7 +6,13 @@
 @section('content')
 
 <div class="container">
+
     <h1>{{ $property->titre}}</h1>
+    @if($property->image)
+
+    
+    <img src="{{$property->url()}}" class="img-fluid w-100 h-100 cover" alt="">
+    @endif
 
     <h2> {{ $property->surface }} m² - {{$property->rooms}} chambres</h2>
     <div class="text-primary font-weight-bold mt-2">

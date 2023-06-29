@@ -32,7 +32,8 @@ class PropertyFormRequest extends FormRequest
             'city' => ['required' , 'min:8'] , 
             'address' => ['required' , 'min:8'] , 
             'sold' => ['required', 'boolean'], 
-            'options' => ['array', 'exists:options,id',  'required']
+            'options' => ['array', 'exists:options,id',  'required'] , 
+            'image' => ['image' ,  'max:2000']
 
 
         ];

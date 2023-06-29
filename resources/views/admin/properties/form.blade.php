@@ -8,7 +8,7 @@
 
 <form class=" gap-2" action="{{ route($property->exists ? 'admin.properties.update' : 'admin.properties.store' , [
     'property' => $property
-] ) }}" method="POST">
+] ) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method($property->exists ? 'put' : 'post' )
 
@@ -31,6 +31,9 @@
     <div class="row">
         @include('admin.shared.input', [ 'class'=> 'col','name' => 'address' , 'type'=>'text', 'value' => $property->address])
         @include('admin.shared.input', [ 'class'=> 'col','name' => 'city' , 'type'=>'text', 'value' => $property->city])
+    </div>
+    <div class="row">
+        @include('admin.shared.file', ['name' => 'image']) 
     </div>
     <div class="row">
         @include('admin.shared.checkbox', [ 'name' => 'sold' ,  'value' => $property->sold])
